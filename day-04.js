@@ -52,7 +52,7 @@ function grabDoll(dolls) {
 function giveMeFive(obj) {
   //coding here
   const five = [];
-  for (var key in obj) {
+  for (const key in obj) {
     if (key.length === 5) five.push(key);
     if (obj[key].length === 5) five.push(obj[key]);
   }
