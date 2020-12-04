@@ -31,20 +31,36 @@ function pickIt(arr) {
 
 // #11: loop statement --break,continue http://www.codewars.com/kata/5721c189cdd71194c1000b9b
 
-function grabDoll(dolls){
-  const  bag=[];
-  for (let i = 0; i < dolls.length; i++){
-    
-    if (dolls[i] = "Hello Kitty" || dolls[i] === "Barbie doll" || dolls[i] === "Mickey Mouse" || dolls[i] === "Snow white") {       
-      continue;
-      
-    } else if (i === "Hello Kitty" || i === "Barbie doll" || i === "Mickey Mouse" || i === "Snow white") {
-      bag.push(dolls[i]);
-    } else (dolls.length = 3){
-      break;
-    }
-    
-  }
-  
-  return bag;
+function grabDoll(dolls) {
+	const bag = [];
+	for (let i = 0; i < dolls.length; i++) {
+
+		if (dolls[i] !== "Hello Kitty" && dolls[i] !== "Barbie doll")
+			continue; {
+			while (bag.length !== 3) {
+				bag.push(dolls[i]);
+				break;
+			}
+		}
+	}
+
+	return bag;
+}
+
+// #12: loop statement --for..in and for..of	http://www.codewars.com/kata/5722b3f0bd5583cf44001000
+
+function giveMeFive(obj){
+  //coding here
+ const five = [];
+    for (var key in obj)
+  {  if
+    (key.length===5)
+     five.push(key);
+   
+  else if
+    (obj[key].length===5)
+     five.push(obj[key]);
+
+   } 
+  return five;
 }
