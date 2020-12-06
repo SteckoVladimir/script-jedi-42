@@ -42,7 +42,6 @@ function grabDoll(dolls) {
 
 // #12: loop statement --for..in and for..of	http://www.codewars.com/kata/5722b3f0bd5583cf44001000
 function giveMeFive(obj) {
-  //coding here
   const five = [];
   for (const key in obj) {
     if (key.length === 5) five.push(key);
