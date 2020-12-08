@@ -24,11 +24,10 @@ function colorOf(r, g, b) {
 // Methods of Number object--toFixed(), toExponential() and toPrecision() http://www.codewars.com/kata/57256064856584bc47000611
 
 function howManySmaller(arr, n) {
-  let result = 0;
+  const resultArr = [];
   for (let i = 0; i < arr.length; i++) {
-    if (arr[i].toFixed(2) < n) {
-      result++;
-    }
+    if (arr[i].toFixed(2) < n) resultArr.push(arr[i]);
   }
-  return result;
+  return resultArr.length;
 }
+
