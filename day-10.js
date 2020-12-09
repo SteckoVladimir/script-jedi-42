@@ -29,4 +29,8 @@ answer3="?";
 
 // #21:  Methods of String object--trim() and the string template http://www.codewars.com/kata/5729b103dd8bac11a900119e
 
+function fiveLine(s) {
+  const strTrim = s.trim();
+  return `${strTrim}\n${strTrim}${strTrim}\n${strTrim}${strTrim}${strTrim}\n${strTrim}${strTrim}${strTrim}${strTrim}\n${strTrim}${strTrim}${strTrim}${strTrim}${strTrim}`;
+}
 
