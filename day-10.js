@@ -13,3 +13,16 @@ function alienLanguage(str) {
 
 #20: Methods of String object--charAt() charCodeAt() and fromCharCode() http://www.codewars.com/kata/57284d23e81185ae6200162a
 
+function topSecret(str){
+  return str
+            .split('')
+            .map( char => String.fromCharCode(char.charCodeAt() - 3))
+            .join('');
+}
+
+//question1: The top secret file number is...
+answer1="?";
+//question2: Super agent's name is...
+answer2="?";
+//question3: He stole the treasure is...
+answer3="?";
