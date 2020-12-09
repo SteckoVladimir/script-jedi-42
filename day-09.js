@@ -24,3 +24,20 @@ function firstToLast(str, c) {
   return str.lastIndexOf(c) - str.indexOf(c);
 }
 
+//#18: Methods of String object--concat() split() and its good friend join()"	http://www.codewars.com/kata/57280481e8118511f7000ffa"
+
+function splitAndMerge(string, separator) {
+  const strSplit = string.split(" ");
+  const arrStrSplit = [];
+  for (let i = 0; i < strSplit.length; i++) {
+    arrStrSplit.push(strSplit[i].split(""));
+  }
+  const strJoin = [];
+  for (let i = 0; i < arrStrSplit.length; i++) {
+    strJoin.push(arrStrSplit[i].join(separator));
+  }
+  const resultArr = strJoin.join(" ");
+  return resultArr;
+}
+
+
