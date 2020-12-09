@@ -17,3 +17,10 @@ function cutIt(arr) {
 
 // #17: Methods of String object--indexOf(), lastIndexOf() and search() http://www.codewars.com/kata/57277a31e5e51450a4000010
 
+function firstToLast(str, c) {
+  if (str.lastIndexOf(c) === -1) {
+    return -1;
+  }
+  return str.lastIndexOf(c) - str.indexOf(c);
+}
+
