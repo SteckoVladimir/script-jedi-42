@@ -3,7 +3,7 @@ function validateMessage(msg) {
     throw new ReferenceError("Message is null!");
   }
 
-  if (typeof msg != "string") {
+  if (typeof msg !== "string") {
     throw new TypeError(
       `Message should be of type string but was of type ${typeof msg}!`
     );
