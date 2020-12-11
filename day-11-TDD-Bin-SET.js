@@ -1,4 +1,4 @@
-// Set Basics http://tddbin.com/#?kata=es6/language/set/basics
+// 1)  Set Basics http://tddbin.com/#?kata=es6/language/set/basics
 
 // 47: Set - basics
 // To do: make all tests pass, leave the assert lines unchanged!
@@ -38,7 +38,7 @@ describe('`Set` lets you store unique values of any type', function (){
 });
 
 
-//  set.add() http://tddbin.com/#?kata=es6/language/set/add
+// 2)    set.add() http://tddbin.com/#?kata=es6/language/set/add
 
 // 48: Set - add
 // To do: make all tests pass, leave the assert lines unchanged!
@@ -71,7 +71,7 @@ describe('`add()` appends a new element to the end of a Set object.', function()
   });
 });
 
-// set.delete() http://tddbin.com/#?kata=es6/language/set/delete
+//  3) set.delete() http://tddbin.com/#?kata=es6/language/set/delete
 
 // 64: Set - delete
 // To do: make all tests pass, leave the assert lines unchanged!
@@ -120,7 +120,7 @@ describe('`set.delete()` deletes an element from a set', function(){
   });
 });
 
-// Set API http://tddbin.com/#?kata=es6/language/set/api
+// 4) Set API http://tddbin.com/#?kata=es6/language/set/api
 
 // 65: Set - API overview
 // To do: make all tests pass, leave the assert lines unchanged!
@@ -162,7 +162,7 @@ describe('`Set` API overview', function(){
   });
   it('`forEach()` calls a callback for each value', function() {   ///!!!!!!!!!!
     let values = [];
-    set.map(value => { values.push(value); });
+    set.forEach(value => { values.push(value); });
     assert.deepEqual(values, api);
   });
   it('`has()` returns true if the given value is in the set', function() {
@@ -181,8 +181,41 @@ describe('`Set` API overview', function(){
       assert.deepEqual([...allValues], api);
     });
     it('`[Symbol.iterator]()`', function() {
-      const iteratorKey = '???';
+      const iteratorKey = Symbol.iterator;
       assert.deepEqual([...set[iteratorKey]()], api);
     });
+  });
+});
+
+//    5)   set.clear() http://tddbin.com/#?kata=es6/language/set/clear
+
+// 70: Set - clear
+// To do: make all tests pass, leave the assert lines unchanged!
+// Follow the hints of the failure messages!
+
+describe('`clear()` removes all elements from a Set object.', function(){
+  let set;
+  beforeEach(() => set = new Set());
+  it('`set.size` becomes 0', function() {
+    set.add('one').add(2);
+    set.clear();
+    var actualSize = 0;
+    assert.equal(actualSize, set.size);
+  });
+  it('the iterator `set.entries()` will not contain any items', function() {
+    set.add('one').add(2);
+    set.clear();
+    set = new Set;
+    const {done} = set.entries().next();
+    assert.equal(done, true);
+  });
+  it('any call to `set.has()` returns false', function() {
+    set.add('one').add(3);
+    
+    assert.deepEqual(set.has(2), false);
+  });
+  it('returns `undefined`', function() {
+    var actualReturn = undefined;
+    assert.equal(actualReturn, set.clear());
   });
 });
