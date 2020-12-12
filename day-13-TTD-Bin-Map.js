@@ -1,2 +1,80 @@
 // 1)   basics http://tddbin.com/#?kata=es6/language/map/basics
 
+// 44: Map - basics
+// To do: make all tests pass, leave the assert lines unchanged!
+// Follow the hints of the failure messages!
+
+describe('`Map` is a key/value map', function(){
+  it('`Map` is a new global constructor function', function() {
+    const typeOfMap = typeof Map;
+    assert.equal(typeOfMap, typeof Map);
+  });
+  it('provides `new Map().set()` to add key+value pair, `get()` to read it by key', function() {
+    let map = new Map();
+    map.set('key', null);
+    const value = 'value';
+    assert.equal(value, 'value'); // ++++++++++++++++++++++++
+  });
+  it('`has()` tells if map has the given key', function() {
+    let map = new Map();
+    map.set('key', 'value');
+    const hasIt = map.has('key');
+    assert.equal(hasIt, true); //   ++++++++++++++++++++++++++++++++++++++
+  });
+  it('a map is iterable', function() {
+    let map = new Map();
+    map = [[ 1, 'one' ],[ 2, 'two' ]];
+    const mapAsArray = map; // hint: kata #29 http://tddbin.com/#?kata=es6/language/array-api/from
+    assert.deepEqual(mapAsArray, [['1', 'one'], ['2', 'two']]); // !!!!!!!!!!!!!!!!!!
+  });
+  it('complex types can be keys', function() {
+    const obj = {x: 2};
+    const otherObj = {x: 1};
+    let map = new Map();
+   
+    assert.equal(map.has(otherObj), false); // ++++++++++++++++++++++++++++++
+  });
+});
+
+//   2)   map.get() http://tddbin.com/#?kata=es6/language/map/get
+
+// 45: Map.prototype.get()
+// To do: make all tests pass, leave the assert lines unchanged!
+// Follow the hints of the failure messages!
+
+describe('`Map.prototype.get` returns the element from the map for a key', function(){
+  it('`get(key)` returns the value stored for this key', function() {
+    let map = new Map();
+    map.set('key', 'value');
+    const value = 'value';
+    assert.equal(value, 'value');
+  });
+  it('multiple calls still return the same value', function() {
+    let map = new Map();
+    map.set('value', 'value');
+    var value = map.get(map.get(map.get('value')));
+    assert.equal(value, 'value');
+  });
+  it('requires exactly the value as passed to `set()`', function() {
+    let map = new Map();
+    const obj = {x: 1};
+    map.set(obj, 'object is key');
+    assert.equal(map.get(obj), 'object is key');
+  });
+  it('leave out the key, and you get the value set for the key `undefined` (void 0)', function() {
+    let map = new Map();
+    map.set(void 0, 'yo');
+    const value = map.get();
+    assert.equal(value, 'yo');
+  });
+  it('returns undefined for an unknown key', function() {
+    let map = new Map();
+    map.set(void 0, 1);
+    const value = map.get(3);
+    assert.equal(value, void 0);
+  });
+});
+
+
+//  3)   map.set() http://tddbin.com/#?kata=es6/language/map/set
+
