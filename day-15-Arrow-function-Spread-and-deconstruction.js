@@ -28,4 +28,16 @@ function infiniteLoop(arr, d, n) {
 
 // #24: methods of arrayObject---splice() and slice() http://www.codewars.com/kata/572cb264362806af46000793
 
+function threeInOne(arr) {
+  const workArr = [...arr];
+  const totalArr = [];
+  for (let i = 0; i < workArr.length; i += 3) {
+    totalArr.push(
+      workArr
+        .slice(i, i + 3)
+        .reduce((accumulator, currentValue) => accumulator + currentValue)
+    );
+  }
+  return totalArr;
+}
 
