@@ -40,4 +40,3 @@ function threeInOne(arr) {
   }
   return totalArr;
 }
-
