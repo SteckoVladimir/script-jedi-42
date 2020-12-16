@@ -14,4 +14,18 @@ function sortIt(arr) {
 
 // #26: methods of arrayObject---map() http://www.codewars.com/kata/572fdeb4380bb703fc00002c
 
+function isolateIt(arr) {
+  return arr.map((val) => {
+    if (val.length % 2 === 0)
+      return val.slice(0, val.length / 2) + "|" + val.slice(val.length / 2);
+    if (val.length % 2 != 0)
+      return (
+        val.slice(0, Math.floor(val.length / 2)) +
+        "|" +
+        val.slice(Math.floor(val.length / 2 + 1))
+      );
+  });
+}
+
+// #27: methods of arrayObject---filter() http://www.codewars.com/kata/573023c81add650b84000429
 
