@@ -29,3 +29,19 @@ function isolateIt(arr) {
 
 // #27: methods of arrayObject---filter() http://www.codewars.com/kata/573023c81add650b84000429
 
+function countGrade(scores) {
+  const workArr = scores;
+  const S = workArr.filter((x) => x == 100).length;
+  const A = workArr.filter((x) => x < 100 && x >= 90).length;
+  const B = workArr.filter((x) => x < 90 && x >= 80).length;
+  const C = workArr.filter((x) => x < 80 && x >= 60).length;
+  const D = workArr.filter((x) => x < 60 && x >= 0).length;
+  const X = workArr.filter((x) => x < 0).length;
+  const totalObj = { S, A, B, C, D, X };
+  return totalObj;
+}
+
+//#28: methods of arrayObject---every() and some() http://www.codewars.com/kata/57308546bd9f0987c2000d07
+
+
+
