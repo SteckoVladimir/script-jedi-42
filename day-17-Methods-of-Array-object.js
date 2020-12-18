@@ -9,25 +9,26 @@ function bigToSmall(arr){
 
 //  #30: methods of arrayObject---reduce() and reduceRight() http://www.codewars.com/kata/573156709a231dcec9000ee8
 
-function tailAndHead(arr){
-  const workArr = arr;
+function tailAndHead(arr) {
+  const workArr = [...arr];
   const tailArr = [];
   const headArr = [];
- 
-  for (let i = 0; i < workArr.length-1; i++) {
-    tailArr.push(+String(workArr[i]).slice(-1));   
-  }
-    for (let i = 1; i < workArr.length; i++) {
-    headArr.push(+String(workArr[i]).slice(0,1));   
-  }
-  function sum (a , b) {
-    for (let i = 0; i < a.length; i++) {
-       a[i] + b[i];
-    }
-  }
-   const totalArr = sum(headArr , tailArr);
-   console.log(totalArr);
+  const totalArr = [];
 
+  for (let i = 0; i < workArr.length - 1; i++) {
+    tailArr.push(+String(workArr[i]).slice(-1));
+  }
+  for (let i = 1; i < workArr.length; i++) {
+    headArr.push(+String(workArr[i]).slice(0, 1));
+  }
+  for (let i = 0; i < headArr.length; i++) {
+    totalArr.push(headArr[i] + tailArr[i]);
+  }
+
+  const result = totalArr.reduce(
+    (accumulator, currentValue) => accumulator * currentValue
+  );
+  return result;
 }
 
 // #31: methods of arrayObject---isArray() indexOf() and toString() http://www.codewars.com/kata/5732b0351eb838d03300101d
