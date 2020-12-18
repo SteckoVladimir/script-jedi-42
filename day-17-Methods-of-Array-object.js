@@ -33,5 +33,21 @@ function tailAndHead(arr) {
 
 // #31: methods of arrayObject---isArray() indexOf() and toString() http://www.codewars.com/kata/5732b0351eb838d03300101d
 
- 
+ function blackAndWhite(arr) {
+  const workArr = arr;
+  if (!Array.isArray(workArr)) return "It's a fake array";
+  if (workArr.includes(5) && workArr.includes(13)) return "It's a black array";
+  if (!workArr.includes(5) || !workArr.includes(13))
+    return "It's a white array";
+}
+
+// *** !!! Implement own reduce https://www.codewars.com/kata/array-number-reduce/train/javascript
+
+Array.prototype.reduce = function (process, initial) {
+  let acc = initial || this[0];
+  for (let i = initial ? 0 : 1; i < this.length; i++) {
+    acc = process(acc, this[i], this);
+  }
+  return acc;
+};
 
