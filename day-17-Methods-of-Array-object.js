@@ -14,7 +14,6 @@ function tailAndHead(arr) {
   const tailArr = [];
   const headArr = [];
   const totalArr = [];
-
   for (let i = 0; i < workArr.length - 1; i++) {
     tailArr.push(+String(workArr[i]).slice(-1));
   }
@@ -24,7 +23,6 @@ function tailAndHead(arr) {
   for (let i = 0; i < headArr.length; i++) {
     totalArr.push(headArr[i] + tailArr[i]);
   }
-
   const result = totalArr.reduce(
     (accumulator, currentValue) => accumulator * currentValue
   );
