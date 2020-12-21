@@ -30,7 +30,6 @@ function isolateIt(arr) {
 // #27: methods of arrayObject---filter() http://www.codewars.com/kata/573023c81add650b84000429
 
 function countGrade(scores) {
-  const workArr = scores;
   const S = workArr.filter((x) => x == 100).length;
   const A = workArr.filter((x) => x < 100 && x >= 90).length;
   const B = workArr.filter((x) => x < 90 && x >= 80).length;
