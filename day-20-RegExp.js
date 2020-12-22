@@ -8,4 +8,6 @@ function countAnimals(animals, count) {
   return workResult;
 }
 
-// 2-ю я не смог домучать
+// #39: Regular Expression--""?"", ""*"", ""+"" and ""{}"" https://www.codewars.com/kata/573bca07dffc1aa693000139
+
+var regex=/^-?9\d*0000$/;
