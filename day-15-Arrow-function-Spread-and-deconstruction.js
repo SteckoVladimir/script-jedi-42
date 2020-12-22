@@ -9,17 +9,6 @@ function shuffleIt(arr, ...arrIndex){
 
 //  #23: methods of arrayObject---push(), pop(), shift() and unshift() http://www.codewars.com/kata/572af273a3af3836660014a1
 
-//Пример РЕКУРСИИ: ВАЖНО !!!
-function threeInOne (a) {
-  return a.length ? [a[0]+a[1]+a[2]].concat(threeInOne(a.slice(3))) : [];
-}
-
-const arr = [
-  1,2,3,4,5,6,7,87,8,9,00,23,23,3,3
-]
-console.log(threeInOne(arr));
-
-// вариант - дубовый:
 function infiniteLoop(arr, d, n) {
   const shifted = arr;
   for (let i = 1; i <= n; i++) {
@@ -38,7 +27,17 @@ function infiniteLoop(arr, d, n) {
 }
 
 // #24: methods of arrayObject---splice() and slice() http://www.codewars.com/kata/572cb264362806af46000793
+//Пример РЕКУРСИИ: ВАЖНО !!!
+function threeInOne (a) {
+  return a.length ? [a[0]+a[1]+a[2]].concat(threeInOne(a.slice(3))) : [];
+}
 
+const arr = [
+  1,2,3,4,5,6,7,87,8,9,00,23,23,3,3
+]
+console.log(threeInOne(arr));
+
+// вариант - дубовый:
 function threeInOne(arr) {
   const workArr = [...arr];
   const totalArr = [];
