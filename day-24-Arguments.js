@@ -10,3 +10,7 @@ function solution(...itemsToCheck) {
 
 // Last Argument http://www.codewars.com/kata/last
 
+function last(list) {
+  const lastEl = arguments[arguments.length - 1];
+  return lastEl[lastEl.length - 1] || lastEl;
+}
