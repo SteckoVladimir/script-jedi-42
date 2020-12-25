@@ -7,3 +7,7 @@
 const OrderPeople = function (people) {
   return people.sort((a, b) => a.age - b.age);
 };
+
+// P.S.: учитель, мне уже так нравятся стрелочные функции, что хочу рефакторить до такого:
+const OrderPeople = people => people.sort((a,b) => a.age-b.age)
+// учитель, спасибо Вам!
