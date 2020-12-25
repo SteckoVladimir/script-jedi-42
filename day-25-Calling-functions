@@ -6,3 +6,11 @@ Function.prototype.call = function(thatArgs, ...args) {
 
 // Anonymous returns http://www.codewars.com/kata/anonymous-returns
 
+name = "The Window";
+const alpha = {
+  name: "My Alpha",
+  getNameFunc: function () {
+    return () => this.name;
+  },
+};
+
