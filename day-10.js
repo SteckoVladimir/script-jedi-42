@@ -11,7 +11,7 @@ function alienLanguage(str) {
   return result;
 }
 
-#20: Methods of String object--charAt() charCodeAt() and fromCharCode() http://www.codewars.com/kata/57284d23e81185ae6200162a
+// #20: Methods of String object--charAt() charCodeAt() and fromCharCode() http://www.codewars.com/kata/57284d23e81185ae6200162a
 
 function topSecret(str){
   const strArr = str.split('');
