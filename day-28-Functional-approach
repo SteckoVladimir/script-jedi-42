@@ -11,3 +11,8 @@ class Singleton {
       return instance;
   }
 };
+
+// or:
+var Singleton = function(){
+  return Singleton.ins = Singleton.ins ? Singleton.ins : this;
+};
