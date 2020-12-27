@@ -6,13 +6,10 @@ const always = n => () => n;
 
 let instance;
 class Singleton {
-  constructor(){
-      if (!instance) instance = this;
-      return instance;
+  constructor() {
+    if (!instance) instance = this;
+    return instance;
   }
-};
+}
 
-// or:
-var Singleton = function(){
-  return Singleton.ins = Singleton.ins ? Singleton.ins : this;
-};
+
