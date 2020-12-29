@@ -2,7 +2,7 @@
 
 let myObj = {};
 myObj.__proto__ = MyObject.prototype;
-myObj.contructor = MyObject.constructor;
+myObj.myFunc = MyObject.constructor;
 myObj.constructor();
 
 // Replicate new http://www.codewars.com/kata/replicate-new
