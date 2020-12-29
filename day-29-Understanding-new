@@ -7,9 +7,4 @@ myObj.constructor();
 
 // Replicate new http://www.codewars.com/kata/replicate-new
 
-const nouveau = Constructor => {
-  return function(name) {
-    return name;
-  };
-  
-};
+const nouveau = (Constructor, ...args) => Reflect.construct(Constructor, args);
