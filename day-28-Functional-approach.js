@@ -4,12 +4,12 @@ const always = n => () => n;
 
 // Singleton pattern https://www.codewars.com/kata/singleton-pattern/train/javascript
 
-let instance;
 class Singleton {
   constructor() {
-    if (!instance) instance = this;
-    return instance;
+    if (Singleton._instance) return Singleton._instance;
+    Singleton._instance = this;
   }
 }
+
 
 
