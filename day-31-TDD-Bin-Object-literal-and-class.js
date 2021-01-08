@@ -454,52 +454,51 @@ describe('Inside a class use `super` to access parent methods', () => {
 
 //  Super in Constructor http://tddbin.com/#?kata=es6/language/class/super-in-constructor
 
-// 67: object-literal - setter
+// 28: class - super in constructor
 // To do: make all tests pass, leave the assert lines unchanged!
 // Follow the hints of the failure messages!
 
-describe('An object literal can also contain setters', () => {
-  describe('defining: a setter', function() {
-    it('by prefixing the property with `set` (and make it a function)', function() {
-      let theX = 'the new X';
-      const obj = {
-        x(newX) { theX = newX; }
-      };
-      obj.x = 'the new X';
-      assert.equal(theX, 'the new X');
-    });
-    it('must have exactly one parameter', function() {
-      let setterCalledWith = 'new value';
-      const obj = {
-        x() { // <<<<=== it's not a setter yet!
-          if (arguments.length === 1) {
-            setterCalledWith = arguments[0];
-          }
-        }
-      };
-      assert.equal(obj.x = 'new value', setterCalledWith); 
-    });
-    it('can be a computed property (an expression enclosed in `[]`)', function() {
-      const publicPropertyName = 'x';
-      const privatePropertyName = '_' + publicPropertyName;
-      const obj = {
-        [privatePropertyName]: 'axe',
+describe('Inside a class`s constructor `super()` can be used', () => {
+  it('`extend` a class and use `super()` to call the parent constructor', () => {
+    class A {constructor() { this.levels = 1; }}
+    class B {
+      constructor() {
         
-        // write the complete setter to make the assert below pass :)
-      };
-      obj.x = 'axe';
-      assert.equal(obj._x, 'axe'); 
-    });
+        this.levels = 2;
+      }
+    }
+    assert.equal(new B().levels, 2);
   });
-  describe('working with/on the setter', function() {
-    it('you can use `delete` to remove the property (including it`s setter)', function() {
-      let setterCalled = false;
-      const obj = {
-        set x(param) { setterCalled = false; }
-      };
-      // delete the property x here, to make the test pass
-      
-      obj.x = true;
-      assert.equal(setterCalled, false); 
-    });
+  it('`super()` may also take params', () => {
+    class A {constructor(startValue=22, addTo=22) { this.counter = startValue + addTo; }}
+    class B extends A {
+      constructor(...args) { 
+        super();
+        this.counter++; 
+      }
+    }
+    assert.equal(new B(42, 2).counter, 45); 
   });
+  it('it is important where you place your `super()` call!', () => {
+    class A {inc() { this.countUp = 1; }}
+    class B extends A {
+      inc() {
+        super.inc();
+        
+        
+        return this.countUp;
+      }
+    }
+    assert.equal(new B().inc(), 1);
+  });
+  it('use `super.constructor` to find out if there is a parent constructor', () => {
+    class ParentClassA {constructor() {"parent"}}
+    class B extends ParentClassA {
+      constructor() {
+        super();
+        this.isTop = 'ParentClassA';
+      }
+    }
+    assert(new B().isTop.includes('ParentClassA'), new B().isTop); //  + + + + + +
+  });
+});
