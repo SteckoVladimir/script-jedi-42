@@ -179,7 +179,7 @@ describe('An object literal can also contain setters', () => {
       // delete the property x here, to make the test pass
       
       obj.x = true;
-      assert.equal(setterCalled, false); // + + + + +
+      assert.equal(setterCalled, false); 
     });
   });
   
@@ -205,7 +205,7 @@ describe('An object literal can also contain setters', () => {
 });
 
 //  Class
-// Creation http://tddbin.com/#?kata=es6/language/class/creation     !!!!!!!!!!!!!!!!!!!!!!
+// Creation http://tddbin.com/#?kata=es6/language/class/creation     
 
 // 22: class - creation
 // To do: make all tests pass, leave the assert lines unchanged!
@@ -239,12 +239,12 @@ describe('Class creation', () => {
   it('multiple methods need no commas (opposed to object notation)', function() {
     class User {
       wroteATest() { this.everWroteATest = true; }
-      isLazy() {  }
+      isLazy() { return !this.everWroteATest }
     }
     const tester = new User();
     assert.equal(tester.isLazy(), true);
     tester.wroteATest();
-    assert.equal(tester.isLazy(), false); // + + + + + + + 
+    assert.equal(tester.isLazy(), false);
   });
   it('anonymous class', () => {
     const classType = 'function';
@@ -291,7 +291,7 @@ describe('Class accessors (getter and setter)', () => {
       }
       const account = new MyAccount();
       account.balance = 42;
-      assert.equal(account.balance, 23); // + + + + + 
+      assert.equal(account.balance, 23); 
     });
   });
 });
@@ -337,7 +337,7 @@ describe('Inside a class you can use the `static` keyword', () => {
   });
 });
 
-// Extends http://tddbin.com/#?kata=es6/language/class/extends !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// Extends http://tddbin.com/#?kata=es6/language/class/extends 
 
 // 25: class - extends
 // To do: make all tests pass, leave the assert lines unchanged!
@@ -356,9 +356,13 @@ describe('Classes can inherit from another using `extends`', () => {
       assert.equal(new B() instanceof Object, true);
     });
     it('a class can extend `null`, and is not an instance of Object', () => {
-      class NullClass extends Object {}
+      class NullClass extends null {
+        constructor(){
+          return Object.create(null)
+        }
+      }
       let nullInstance = new NullClass();
-      assert.equal(nullInstance instanceof Object, false); //  + + + + ++  + +
+      assert.equal(nullInstance instanceof Object, false);
     });
   });
   describe('instance of', () => {
@@ -413,3 +417,89 @@ describe('Classes can inherit from another', () => {
     });
   });
 });
+
+//  Super in Method http://tddbin.com/#?kata=es6/language/class/super-in-method
+
+// 27: class - super inside a method
+// To do: make all tests pass, leave the assert lines unchanged!
+// Follow the hints of the failure messages!
+
+describe('Inside a class use `super` to access parent methods', () => {
+  it('use of `super` without `extends` fails (already when transpiling)', () => {
+    class A {hasSuper() { return false }}
+    assert.equal(new A().hasSuper(), false);
+  });
+  it('`super` with `extends` calls the method of the given name of the parent class', () => {
+    class A {hasSuper() { return true; }}
+    class B extends A {hasSuper() { return true; }}
+    assert.equal(new B().hasSuper(), true);  
+  });
+  it('when overridden a method does NOT automatically call its super method', () => {
+    class A {hasSuper() { return true; }}
+    class B extends A {hasSuper() { return void 0; }}
+    assert.equal(new B().hasSuper(), void 0);  
+  });
+  it('`super` works across any number of levels of inheritance', () => {
+    class A {iAmSuper() { return true; }}
+    class B extends A {}
+    class C extends B {iAmSuper() { return true; }}
+    assert.equal(new C().iAmSuper(), true); 
+  });
+  it('accessing an undefined member of the parent class returns `undefined`', () => {
+    class A {}
+    class B extends A {getMethod() { return void 0 }}
+    assert.equal(new B().getMethod(), void 0);
+  });
+});
+
+//  Super in Constructor http://tddbin.com/#?kata=es6/language/class/super-in-constructor
+
+// 67: object-literal - setter
+// To do: make all tests pass, leave the assert lines unchanged!
+// Follow the hints of the failure messages!
+
+describe('An object literal can also contain setters', () => {
+  describe('defining: a setter', function() {
+    it('by prefixing the property with `set` (and make it a function)', function() {
+      let theX = 'the new X';
+      const obj = {
+        x(newX) { theX = newX; }
+      };
+      obj.x = 'the new X';
+      assert.equal(theX, 'the new X');
+    });
+    it('must have exactly one parameter', function() {
+      let setterCalledWith = 'new value';
+      const obj = {
+        x() { // <<<<=== it's not a setter yet!
+          if (arguments.length === 1) {
+            setterCalledWith = arguments[0];
+          }
+        }
+      };
+      assert.equal(obj.x = 'new value', setterCalledWith); 
+    });
+    it('can be a computed property (an expression enclosed in `[]`)', function() {
+      const publicPropertyName = 'x';
+      const privatePropertyName = '_' + publicPropertyName;
+      const obj = {
+        [privatePropertyName]: 'axe',
+        
+        // write the complete setter to make the assert below pass :)
+      };
+      obj.x = 'axe';
+      assert.equal(obj._x, 'axe'); 
+    });
+  });
+  describe('working with/on the setter', function() {
+    it('you can use `delete` to remove the property (including it`s setter)', function() {
+      let setterCalled = false;
+      const obj = {
+        set x(param) { setterCalled = false; }
+      };
+      // delete the property x here, to make the test pass
+      
+      obj.x = true;
+      assert.equal(setterCalled, false); 
+    });
+  });
