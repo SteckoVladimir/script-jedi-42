@@ -65,3 +65,149 @@ describe('`Object.is()` determines whether two values are the same', function(){
 
 //  TDD Bin Reflect http://tddbin.com/#?kata=es6/language/reflect/basics
 
+// 58: Reflect - basics
+// To do: make all tests pass, leave the assert lines unchanged!                   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+describe('`Reflect` basics', function() {
+  describe('Reflect is special, it is different to e.g. `Object`', function() {
+    it('it`s of type object', function() {
+      const actualType = 'object';
+      assert.equal(actualType, typeof Reflect);
+    });
+    it('it can not be instantiated (`new Reflect()`)', function() {
+      const tryToConstruct = new Reflect();
+      assert.throws(tryToConstruct, TypeError);
+    });
+    it('has no `call` method (as opposed to e.g. Object)', function() {
+      const actual = 'undefined';
+      assert.equal(actual, typeof Reflect.call); 
+    });
+  });
+  
+  describe('some `Reflect` usages', function() {
+    it('`Reflect.construct()` is like `new ClassName`', function() {
+      let Class;
+      assert.equal(Reflect.construct(Class, []) instanceof Class, true);
+    });
+    it('`Reflect.get()` returns a property`s value', function() {
+      let obj = {x: 23};
+      assert.equal(Reflect.get(obj, 'x'), 23);
+    });
+    it('`Reflect.has()` is like `in` just as a function', function() {
+      let obj = {x:1};
+      assert.equal(Reflect.has(obj, 'x'), true);
+    });
+  });
+});
+
+//  Basics
+//   Reflect.apply() http://tddbin.com/#?kata=es6/language/reflect/apply
+
+// 59: Reflect - apply 
+// To do: make all tests pass, leave the assert lines unchanged!
+
+describe('`Reflect.apply` calls a target function', function() {
+  it('it is a static method', function() {
+    const actualType = 'function';
+    assert.equal(actualType, typeof Reflect.apply)
+  });
+
+  describe('the 1st parameter', () => {
+    it('is a callable, e.g. a function', () => {
+      let fn = () => 42;
+      assert.equal(Reflect.apply(fn, void 0, []), 42);
+    });
+    it('passing it a non-callable throws a TypeError', function() {
+      const applyOnUncallable = () =>
+        Reflect.apply(TypeError);
+      assert.throws(applyOnUncallable, TypeError); 
+    });
+  });
+
+  describe('the 2nd parameter', () => {
+    it('is the scope (or the `this`)', function() {
+      class FourtyTwo {
+        constructor() { this.value = 42}
+        fn() {return this.value}
+      }
+      let instance = new FourtyTwo();
+      const fourtyTwo = Reflect.apply(instance.fn, new FourtyTwo(), []);
+      assert.deepEqual(fourtyTwo, 42);
+    });
+  });
+
+  describe('the 3rd parameter', () => {
+    it('must be an array (or array-like)', () => {
+      const thirdParam = [void 0, null];
+      assert.doesNotThrow(() => Reflect.apply(() => void 0, null, thirdParam));
+    }); 
+    it('is an array of parameters passed to the call', function() {
+      let emptyArrayWithFiveElements = [42, 42, 42, 42, 42];
+      assert.deepEqual(emptyArrayWithFiveElements.fill(42), [42, 42, 42, 42, 42]);
+    }); 
+  });
+
+  describe('example usages', () => {
+    it('simple function call', () => {
+      const fn = () => 'the return value';
+      assert.equal(Reflect.apply(fn, void 0, []), 'the return value');
+    });
+    it('call a function on an array', () => {
+      const fn = () => [23, 42];
+      assert.deepEqual(Reflect.apply(fn, [0, 23, 42], [1]), [23, 42]);
+    });
+    it('pass in the `this` that the function to call needs', () => {
+      class Bob {
+        constructor() { this._name = 'Bob'; }
+        name() { return this._name; }
+      }
+      const bob = new Bob();
+      const scope = bob;
+      assert.equal(Reflect.apply(bob.name, scope, []), 'Bob'); // + + + 
+    });
+  });
+});
+
+//  Reflect.getPrototypeOf() http://tddbin.com/#?kata=es6/language/reflect/getprototypeof
+
+// 60: Reflect - getPrototypeOf 
+// To do: make all tests pass, leave the assert lines unchanged!
+
+describe('`Reflect.getPrototypeOf` returns the prototype', function() {
+  it('works like `Object.getPrototypeOf`', function() {
+    const viaObject = Object.getPrototypeOf({});
+    const viaReflect = Reflect.getPrototypeOf({});
+    assert.strictEqual(viaObject, viaReflect);
+  });
+  it('throws a TypeError for a non-object', function() {
+    let fn = () => { Reflect.getPrototypeOf() };
+    assert.throws(fn, TypeError); 
+  });
+  it('a `new Set()` has a prototype', function() {
+    const aSet = new Set();
+    assert.equal(Reflect.getPrototypeOf(aSet), Set.prototype); 
+  });
+  it('for a class, it is `Klass.prototype`', function() {
+    class Klass {}
+    const proto = new Klass();
+    assert.equal(proto, Klass.prototype);
+  });
+  it('works also for an old-style "class"', function() {
+    function Klass() {}
+    const proto = Reflect.getPrototypeOf();
+    assert.equal(proto, Klass.prototype);
+  });
+  it('an array has a prototype too', function() {
+    let arr = [];
+    const expectedProto = Array;
+    assert.equal(Reflect.getPrototypeOf(arr), expectedProto);
+  });
+
+  // TODO
+  // it('getting the prototype of an "exotic namespace object" returns `null`', function() {
+  //   http://www.ecma-international.org/ecma-262/6.0/#sec-module-namespace-exotic-objects-getprototypeof
+  //   Don't know how to write a test for this yet, without creating a dep in tddbin hardcoded
+  //   PRs welcome
+  //   assert.equal(Reflect.getPrototypeOf(namespace exotic object), null);
+  // });
+});
