@@ -1,6 +1,15 @@
 // SantaClausable Interface http://www.codewars.com/kata/santaclausable-interface
 
-const isSantaClausable = obj =>'function' === typeof (obj.sayHoHoHo && obj.distributeGifts && obj.goDownTheChimney);
+function isSantaClausable(obj) {
+  return typeof obj.sayHoHoHo === 'function'
+      && typeof obj.distributeGifts === 'function'
+      && typeof obj.goDownTheChimney === 'function';
+}
+
+return [ 'sayHoHoHo',
+        'distributeGifts',
+        'goDownTheChimney']
+        .every( method => typeof obj[method] === 'function');
 
 // Cylon Evolution http://www.codewars.com/kata/cylon-evolution
 
