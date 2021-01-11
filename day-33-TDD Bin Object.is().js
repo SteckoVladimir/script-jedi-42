@@ -65,9 +65,6 @@ describe('`Object.is()` determines whether two values are the same', function(){
 
 //  TDD Bin Reflect http://tddbin.com/#?kata=es6/language/reflect/basics
 
-// 58: Reflect - basics
-// To do: make all tests pass, leave the assert lines unchanged!                   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 describe('`Reflect` basics', function() {
   describe('Reflect is special, it is different to e.g. `Object`', function() {
     it('it`s of type object', function() {
@@ -75,7 +72,7 @@ describe('`Reflect` basics', function() {
       assert.equal(actualType, typeof Reflect);
     });
     it('it can not be instantiated (`new Reflect()`)', function() {
-      const tryToConstruct = new Reflect();
+      const tryToConstruct = Reflect.construct;
       assert.throws(tryToConstruct, TypeError);
     });
     it('has no `call` method (as opposed to e.g. Object)', function() {
@@ -86,7 +83,7 @@ describe('`Reflect` basics', function() {
   
   describe('some `Reflect` usages', function() {
     it('`Reflect.construct()` is like `new ClassName`', function() {
-      let Class;
+      let Class = new Reflect();
       assert.equal(Reflect.construct(Class, []) instanceof Class, true);
     });
     it('`Reflect.get()` returns a property`s value', function() {
@@ -216,12 +213,12 @@ describe('`Reflect.getPrototypeOf` returns the prototype', function() {
 //   Reflect.construct() http://tddbin.com/#?kata=es6/language/reflect/construct
 
 // 68: Reflect - construct 
-// To do: make all tests pass, leave the assert lines unchanged! !!!!!!!!!!!!!!!
+// To do: make all tests pass, leave the assert lines unchanged! 
 
 describe('`Reflect.construct` is the `new` operator as a function', function() {
   describe('the function itself', function() {
     it('is static on the `Reflect` object', function() {
-      const name = 'konstructor';
+      const name = 'constructor';
       assert.equal(name in Reflect, true); 
     });
     it('is of type `function`', function() {
@@ -293,14 +290,13 @@ describe('`Reflect.construct` is the `new` operator as a function', function() {
 });
 
 //   Reflect.defineProperty() http://tddbin.com/#?kata=es6/language/reflect/defineproperty
-
 // 69: Reflect - defineProperty 
 // To do: make all tests pass, leave the assert lines unchanged!              !!!!!!!!!!!!!!!!!!!!!!!!
 
 describe('`Reflect.defineProperty()` is like `Object.defineProperty()` but returns a Boolean.', function() {
   describe('the function itself', function() {
     it('is static on the `Reflect` object', function() {
-      const name = 'what`s the functions name again? :)';
+      const name = 'defineProperty';
       assert.equal(name in Reflect, true); // + + + 
     });
     it('is of type `function`', function() {
@@ -359,7 +355,7 @@ describe('`Reflect.defineProperty()` is like `Object.defineProperty()` but retur
     it('can be of any type (even itself)', function() {
       let obj = {};
       Reflect.defineProperty(obj, 'prop');
-      assert.equal(obj.prop, obj); // 6 + + + + +  + + +
+      assert.equal(obj.prop, obj); 
     });
   });
 
@@ -384,13 +380,57 @@ describe('`Reflect.defineProperty()` is like `Object.defineProperty()` but retur
         assert.equal(wasPropertyDefined, false);
       });
       it('when the object we want to add a property to is frozen', function() {
-        let instance = new class {};
+        let instance = new class {}; 
         Object.freeze(instance);
         const wasPropertyDefined = Reflect.defineProperty({}, 'prop', {value: 1});
-        assert.equal(wasPropertyDefined, false); // + + +
+        assert.equal(wasPropertyDefined, false); 
       });
     });
   });
 });
 
 //   TDD Bin Modules import https://tddbin.com/?664#?kata=es6/language/modules/import
+
+//** tddbin.options.transpileToEs5=true
+// 61: modules - import
+// To do: make all tests pass, leave the assert lines unchanged!
+
+import assert from 'assert'; // is only here for completeness, `assert` is always imported by default    !!!!!!!
+
+
+describe('use `import` to import functions that have been exported (somewhere else)', function() {
+  describe('the import statement', function() {
+    it('is only allowed on the root level', function() {
+      // Try to comment this out, it will yell at you!
+      // import assert from 'assert';
+    });
+    it('import an entire module using `import <name> from "<moduleName>"`', function() {
+      const expectedType = 'function';
+      assert.equal(typeof assert, expectedType);
+    });
+  });
+  describe('import members', function() {
+    it('import a single member, using `import {<memberName>} from "module"`', function() {
+      
+      assert.strictEqual(equal, assert.equal); // + + + 
+    });
+    describe('separate multiple members with a comma', function() {
+      it('`deepEqual` from the assert module', () => {
+        assert.strictEqual(deepEqual, assert.deepEqual);
+      });
+      it('`notEqual` from the assert module', () => {
+        assert.strictEqual(notEqual, assert.notEqual);
+      });
+    });
+  });
+  describe('alias imports', function() {
+    it('using `member as alias` as memberName', function() {
+      
+      assert.strictEqual(myEqual, assert.equal);
+    });
+    it('rename the default export of a module, using `default as alias` as memberName', function() {
+     
+      assert.strictEqual(myAssert, assert);
+    });
+  });
+});
