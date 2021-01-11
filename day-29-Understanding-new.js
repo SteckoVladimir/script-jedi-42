@@ -2,8 +2,11 @@
 
 let myObj = {};
 myObj.__proto__ = MyObject.prototype;
-myObj.myFunc = MyObject.constructor;
-myObj.constructor();
+MyObject.call(myObj);
+//function MyObject() {
+// this = myObj;
+// return this;
+//}
 
 // Replicate new http://www.codewars.com/kata/replicate-new
 
