@@ -114,12 +114,12 @@ describe('A promise can be created in multiple ways', function() {
   });
   describe('extending a `Promise`', function() {
     it('using `class X extends Promise{}` is possible', function(done) {
-      class MyPromise {}
+      class MyPromise extends Promise {}
       const promise = new MyPromise(resolve => resolve());
       promise
         .then(() => done())
         .catch(e => done(new Error('Expected to resolve, but failed with: ' + e)));
-    });  // + + + + + +
+    });  // + + + +  + + ++ 
     it('must call `super()` in the constructor if it wants to inherit/specialize the behavior', function() {
       class ResolvingPromise extends Promise {
         
@@ -184,11 +184,11 @@ describe('A promise can be created in multiple ways', function() {
       const promise = Promise.reject();
       promise
         .then(() => done(new NotRejectedError()))
-        .catch(value => { assert.deepEqual(value, void 0); done(); }) // + + + +
+        .catch(value => { assert.deepEqual(value, void 0); done(); }) 
         .catch(done);
     });
     it('the parameter passed to `reject()` can be used in the `.catch()`', function(done) {
-      const promise = Promise;
+      const promise = Promise.reject('quick reject');
       promise
         .then(() => done(new NotRejectedError()))
         .catch(value => { assert.deepEqual(value, 'quick reject'); done(); })
@@ -202,4 +202,5 @@ class NotRejectedError extends Error {
     super();
     this.message = 'Expected promise to be rejected.';
   }
+}
 }
