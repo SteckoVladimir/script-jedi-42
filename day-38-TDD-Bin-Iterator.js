@@ -150,3 +150,5 @@ describe('A simple iterable without items inside, implementing the right protoco
   });
 });
 
+//  usage http://tddbin.com/#?kata=es6/language/iterator/usages
+
