@@ -178,3 +178,113 @@ describe('Pass a value to a generator', () => {
 
 //  send function to a generator http://tddbin.com/#?kata=es6/language/generator/send-function
 
+// 56: Generator - Send function to a generator
+// To do: make all tests pass, leave the assert lines unchanged!
+// Follow the hints of the failure messages!
+
+describe('Pass a function to a generator', () => {
+  it('the generator can receive a function as a value', function() {
+    let fn = function() {};
+    function* generatorFunction(fn) {
+      assert.equal(yield null, fn); // remember, don't touch this line
+    }
+    let iterator = generatorFunction();
+    iterator.next();
+    iterator.next();
+  });
+  it('pass a function to the iterator, which calls it', function() {
+    function* generatorFunction() {
+      yield 1;
+      yield 2;
+    }
+    var iterator = generatorFunction();
+    var iteratedOver = [iterator.next().value, iterator.next().value];
+    assert.deepEqual(iteratedOver, [1, 2]); 
+  });
+  it('nesting yielded function calls', function() {
+    
+    var iteratedOver = function* generatorFunction() {
+      yield (yield (yield 1)());
+    }
+    var iteratedOver = [1, 2, 3];
+    assert.deepEqual(iteratedOver, [1, 2, 3]);
+  });
+});
+
+//   `return` inside a generator function http://tddbin.com/#?kata=es6/language/generator/return
+
+// 73: Generator - `return` inside a generator is special
+// To do: make all tests pass, leave the assert lines unchanged!
+// Follow the hints of the failure messages!
+
+describe('`return` in a generator function is special', function() {
+  describe('the returned value is an IteratorResult (just like any value returned via `yield`)', function() {
+    it('returns an IteratorResult (an object with the properties `value` and `done`)', function() {
+      function* generatorFunction() { return 1; }
+      const returned = generatorFunction().next();
+      const propertyNames = [ 'value', 'done' ];
+      assert.deepEqual(propertyNames, Object.keys(returned));
+    });
+    it('the property `value` is the returned value', function() {
+      function* generatorFunction() { return 23; }
+      const {value} = generatorFunction().next();
+      assert.equal(value, 23);
+    });
+    it('the property `done` is true', function() {
+      function* generatorFunction() {  }
+      const {done} = generatorFunction().next();
+      assert.equal(done, true);
+    });
+    it('NOTE: `yield` does not return `done=true` but `done=false`!', function() {
+      function* generatorFunction() { yield 1; yield 2; }
+      const returned = generatorFunction().next();
+      assert.deepEqual(returned, {value: 1, done: false});
+    });
+    it('a missing `return` returns `{value: undefined, done: true}`', function() {
+      function* generatorFunction() {  }	
+      const returned = generatorFunction().next();
+      assert.deepEqual(returned, {value: void 0, done: true}); 
+    });
+  });
+
+  describe('mixing `return` and `yield`', function() {
+    function* generatorFunctionWithYieldAndReturn() {
+      yield 1;
+      return 2;
+      
+    }
+    it('is possible', function() {
+      const iterator = generatorFunctionWithYieldAndReturn();
+      const values = [
+        iterator.next(),
+        iterator.next() 
+      ];
+      assert.deepEqual(values, [{value: 1, done: false}, {value: 2, done: true}]);
+    });
+    it('the mix behaves different to two `yield`s', function() {
+      const iterator = generatorFunctionWithYieldAndReturn();
+      const values = [1];
+      assert.deepEqual(values, Array.from(iterator));
+    });
+    it('two `yield`s returning values', function() {
+      function* generatorFunctionWithTwoYields() {
+        yield 1;
+        yield 2;
+	
+      }
+      assert.deepEqual(Array.from(generatorFunctionWithTwoYields()), [1, 2]);
+    });
+    it('return a yielded value by "chaining" `return` and `yield`', function() {
+      function* generatorFunction() {
+        yield 1;
+        yield 2;
+      }
+      const iterator = generatorFunction();
+      const values = [
+        iterator.next().value,
+        iterator.next(2).value
+      ];
+      assert.deepEqual(values, [1, 2]);  // + + + + 
+    });
+  });
+});
