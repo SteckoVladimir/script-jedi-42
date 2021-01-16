@@ -8,3 +8,14 @@ function* generator(n) {
  }
  return counter;
 }
+
+function* generator(n) {
+  let index = 1;
+  if (n !== undefined) {
+    yield index = n;
+  }
+  if (n === undefined) {
+    while(true)
+    yield index++;
+  }
+}
