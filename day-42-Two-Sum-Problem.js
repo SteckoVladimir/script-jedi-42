@@ -12,6 +12,14 @@ const twoSum = function(nums, target) {
   return result;
 };
 
-// and 
+// or !!!!!!!
 
-
+const twoSum = function(nums, target) {
+  let workArr = new Map();
+  for (let i = 0; i < nums.length; i++) {
+    let x = nums[i], y = target - x;
+    if (workArr.has(y))
+      return [workArr.get(y), i];
+    workArr.set(x, i);
+  }
+};
